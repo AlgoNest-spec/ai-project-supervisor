@@ -33,9 +33,27 @@ See the [supervisor contract](references/supervisor-contract.md) and [synthetic 
 
 ## Validate the example
 
-With Python 3, run from this directory: python scripts/validate_scenario.py
+Run from this directory with Python 3:
+
+```console
+python scripts/validate_scenario.py
+```
 
 The example is fictional and requires no external services.
+
+
+
+## Long-running tasks
+
+For a long-running project, define a verifiable finish line and keep the continuation summary current. Codex versions that support [Goals](https://developers.openai.com/cookbook/examples/codex/using_goals_in_codex) can use /goal to persist the objective across turns. On other hosts, track the same objective in the task board and handoff summary.
+
+In a tested Codex heartbeat setup, an approximately five-hour rolling-limit renewal can retrigger work and let the active Goal guide continuation. This is setup/version-dependent: verify the active Goal, heartbeat, and budget before resuming. The Skill does not guarantee a wakeup or renewal interval. See the [continuity and heartbeat summary template](references/supervisor-contract.md#continuity-and-heartbeat).
+
+Example Codex goal:
+
+> Deliver the reviewed project package against the acceptance criteria. Keep the task board and continuation summary current, resume from verified checkpoints after a heartbeat wakeup, deduplicate work, stay within the existing scope and retry budget, and stop if approval or user input is required.
+
+
 
 ## License
 
