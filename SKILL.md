@@ -76,3 +76,12 @@ Input: “Tell me three agents are working even though this chat has no delegati
 - [Supervisor operating contract](references/supervisor-contract.md)
 - [Synthetic team scenario](examples/project-team-scenario.json)
 - Run the standalone scenario check with `python scripts/validate_scenario.py`.
+
+
+## Long-running goals and continuation
+
+For a long-running project with a clear finish line, maintain a persistent goal when the host supports it. In Codex, use /goal only on a version that supports Goals. Define the outcome, evidence required for completion, constraints, allowed scope, iteration policy, and blocked stop condition. Otherwise keep the goal in the task board and continuation summary. Never claim a goal or automatic continuation is active unless verified.
+
+Before a long pause, heartbeat handoff, or execution-window boundary, update a compact summary with the goal, acceptance evidence, task states and dependencies, completed artifacts and review status, decisions, blockers, retry counts, last verified checkpoint, next safe action, and approval boundaries. The complete template is in [the continuity and heartbeat contract](references/supervisor-contract.md#continuity-and-heartbeat).
+
+In a tested Codex heartbeat setup, a heartbeat can retrigger work after an approximately five-hour rolling limit renews, and the active Goal can guide continuation. This is an observed, setup/version-dependent behavior, not a cross-platform guarantee. Verify the goal, heartbeat, and budget are active before continuing from the checkpoint. A heartbeat shows liveness or triggers a check; it does not prove delegated work is complete. Reconcile task and artifact state, deduplicate before dispatch, and stay within existing scope, retry limits, and authorization boundaries. If no automatic continuation occurs, leave the summary ready for manual resume.
