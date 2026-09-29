@@ -1,0 +1,21 @@
+{
+  "notice": "Fictional project-coordination fixture. All task and contributor names are invented.",
+  "objective": "Prepare a small launch-readiness package for an imaginary desktop note app.",
+  "dispatch_available": true,
+  "agents": [
+    {"id": "researcher-1", "capabilities": ["source-based research", "evidence tables"]},
+    {"id": "builder-1", "capabilities": ["prototype", "implementation notes"]},
+    {"id": "writer-1", "capabilities": ["synthesis", "clear documentation"]},
+    {"id": "reviewer-1", "capabilities": ["independent review", "claim verification"]}
+  ],
+  "tasks": [
+    {"id": "requirements", "owner": "researcher-1", "depends_on": [], "acceptance": "Three user needs each linked to a fixture source."},
+    {"id": "prototype", "owner": "builder-1", "depends_on": [], "acceptance": "A clickable synthetic mockup and a list of known limitations."},
+    {"id": "launch-brief", "owner": "writer-1", "depends_on": ["requirements", "prototype"], "acceptance": "Brief covers needs, mockup, and unresolved claims."},
+    {"id": "independent-review", "owner": "reviewer-1", "depends_on": ["launch-brief"], "acceptance": "Claims and artifact checked; findings are ACCEPT, REVISE, REJECT, or INCONCLUSIVE."}
+  ],
+  "duplicate_request": {"task_id": "requirements", "same_canonical_input_hash": true, "expected_action": "reuse existing task; do not launch duplicate"},
+  "conflict": {"claim": "The onboarding flow needs two screens.", "evidence_a": "Mock interview notes imply two screens.", "evidence_b": "Prototype review notes imply three screens.", "expected_action": "trace the disagreement to source evidence; reconcile or preserve as unresolved"},
+  "failure": {"task_id": "prototype", "first_attempt": "transient tool failure", "retry_limit": 1, "independent_task_to_continue": "requirements", "expected_action": "preserve attempt, bounded retry, continue independent branch"},
+  "expected_final_status": "INCOMPLETE until independent-review accepts the artifact"
+}
